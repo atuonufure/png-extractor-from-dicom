@@ -12,7 +12,6 @@ def get_names(path):
             _, ext = os.path.splitext(filename)
             if ext in [".dcm"]:
                 names.append(filename)
-
     return names
 
 
@@ -25,11 +24,17 @@ def convert_dcm_jpg(name):
     return final_image
 
 
+def create_folder(folder_name):
+    if not os.path.exists(folder_name):
+        os.makedirs(folder_name)
+
+
 def main():
     names = get_names("dicom-files")
+    create_folder("png-files")
     for name in names:
         image = convert_dcm_jpg(name)
-        image.save(name + ".png")
+        image.save("png-files/" + name + ".png")
 
 
 if __name__ == "__main__":
